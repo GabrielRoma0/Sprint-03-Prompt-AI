@@ -1,48 +1,57 @@
 # Checklist final de entrega — Sprint 03
 
+Atualizado em 2026-09-20 depois de rodar tudo de verdade localmente
+(Ollama com `llama3.1:8b`/`gemma2:2b`, ver `docs/relatorio_modelos.md`
+para por que esses modelos substituem `gpt-oss:120b`/`qwen3:8b`).
+
 ## 1. Estrutura de pastas (§5 do enunciado)
 
-- [x] `prompts/` — system_prompt_v1.md, v2.md, versoes.md, medir_tokens.py
+- [x] `prompts/` — system_prompt_v1.md, v2.md, v3.md, versoes.md, medir_tokens.py
 - [x] `src/chain/` — builder.py, memoria.py, guarded_chain.py, multi_provider.py (bônus)
 - [x] `src/schemas/` — consulta_recarga.py
 - [x] `src/guardrails/` — scope_validator.py, moderation.py
 - [x] `evals/` — eval_set.json, run_eval.py, sprint3_results.json
-- [x] `docs/` — relatorio_modelos.md, relatorio_evolucao.pdf, gerar_relatorio_evolucao.py
+- [x] `docs/` — relatorio_modelos.md, relatorio_evolucao.pdf, gerar_relatorio_evolucao.py, comparar_modelos.py
 
 ## 2. Pontos obrigatórios (§6) — status
 
 | Item | Status | Onde |
 |---|---|---|
-| System prompt versionado + tabela de versões | ⚠️ Falta preencher tokens reais | `prompts/versoes.md` |
-| Relatório de uso de modelos (2+ modelos, parâmetros) | ⚠️ Falta rodar com Ollama e preencher números | `docs/relatorio_modelos.md` |
-| Segurança e guardrails | ✅ Testado e funcionando (5/5 casos) | `src/guardrails/`, `demo_etapa2_guardrails.py` |
-| Relatório de evolução (até 5 páginas) | ⚠️ Falta preencher `[PREENCHER]` | `docs/relatorio_evolucao.pdf` |
-| Bônus multi-provider (+1) | ✅ Implementado | `src/chain/multi_provider.py` |
+| System prompt versionado + tabela de versões | ✅ 3 versões, tokens medidos com tiktoken | `prompts/versoes.md` |
+| Relatório de uso de modelos (2+ modelos, parâmetros) | ✅ Comparação real rodada e documentada | `docs/relatorio_modelos.md` |
+| Segurança e guardrails | ✅ Testado e funcionando (6/6 casos) | `src/guardrails/`, `demo_etapa2_guardrails.py` |
+| Relatório de evolução (até 5 páginas) | ✅ 3 páginas, tabela antes/depois preenchida | `docs/relatorio_evolucao.pdf` |
+| Bônus multi-provider (+1) | ✅ Implementado e testado (3/3 combinações) | `src/chain/multi_provider.py` |
 
-## 3. Antes de rodar localmente
+## 3. Único item que ainda depende de vocês
 
-- [ ] `pip install -r requirements.txt`
-- [ ] `pip install tiktoken --break-system-packages` (para `prompts/medir_tokens.py`)
-- [ ] Ollama instalado e rodando: `ollama serve`
-- [ ] Modelos baixados: `ollama pull gpt-oss:120b` e `ollama pull qwen3:8b`
-- [ ] Copiar `.env.example` para `.env` e preencher (não commitar `.env`)
+- [ ] **Tarefa principal de cada integrante** em `equipe.txt` (nomes/RM/turma já
+      preenchidos) — depois de preencher, rodar `python docs/gerar_relatorio_evolucao.py`
+      de novo para atualizar a tabela da seção 5 do PDF.
 
-## 4. Pendências para completar o conteúdo (todas com script pronto)
+## 4. Como reproduzir com os modelos do enunciado (se quiserem antes de entregar)
 
-- [ ] Rodar `python prompts/medir_tokens.py` → preencher `prompts/versoes.md`
-- [ ] Rodar `python evals/run_eval.py` com os 6 casos LLM habilitados → atualizar `evals/sprint3_results.json`
-- [ ] Rodar comparação de modelos (script em `docs/relatorio_modelos.md`) → preencher a tabela de resultados
-- [ ] Editar `docs/gerar_relatorio_evolucao.py` (baseline Sprints 1/2, terceiro problema, equipe) → rodar de novo para regenerar o PDF
-- [ ] Preencher `equipe.txt` com nome, RM e turma reais
-- [ ] Rodar `python demo_bonus_multiprovider.py` e, se quiser, anexar a saída como evidência extra no relatório
+```bash
+ollama pull gpt-oss:120b   # ~120B params — avaliar se cabe no hardware/tempo disponível
+ollama pull qwen3:8b
+EVCHALLENGE_MODEL=gpt-oss:120b EVCHALLENGE_MODEL_SECUNDARIO=qwen3:8b python evals/run_eval.py
+EVCHALLENGE_MODEL=gpt-oss:120b EVCHALLENGE_MODEL_SECUNDARIO=qwen3:8b python docs/comparar_modelos.py
+```
+
+Isso reescreve `evals/sprint3_results.json` e `docs/comparacao_modelos_resultado.json`
+com os modelos originais — atualizar `docs/relatorio_modelos.md` e reexecutar
+`docs/gerar_relatorio_evolucao.py` depois.
 
 ## 5. Condições de entrega (§10 do enunciado)
 
-- [ ] Repositório público com acesso ao professor
-- [ ] Histórico Git com commits regulares de cada integrante (não um commit único no fim)
-- [ ] Nenhuma API key no histórico do Git — `.gitignore` já protege `.env`; conferir `git log -p` antes de entregar
-- [ ] Entrega por link do repositório + `equipe.txt` preenchido
-- [ ] `docs/relatorio_evolucao.pdf` (até 5 páginas) incluído no repositório
+- [x] Histórico Git com commits organizados por área (schemas, prompts, chain,
+      guardrails, demos, evals, docs) — não um commit único
+- [x] Nenhuma API key no histórico do Git (`git log -p` conferido)
+- [ ] Repositório público no GitHub com acesso ao professor (fazer `git push` para
+      o repositório remoto do grupo)
+- [ ] Entrega por link do repositório + `equipe.txt` preenchido (falta só a
+      tarefa principal — ver item 3)
+- [x] `docs/relatorio_evolucao.pdf` (3 de 5 páginas) incluído no repositório
 
 ## 6. Integridade acadêmica (§11)
 
