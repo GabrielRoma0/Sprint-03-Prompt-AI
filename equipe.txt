@@ -1,6 +1,8 @@
 EV Challenge — GoodWe · Sprint 03
 Turma: 1CCR
 
+Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
+
 Integrantes:
 
 1. Nome: Léo Moreno Sambo | RM: 569556 | Tarefa principal: Chain LCEL (prompt | llm | parser) e memória conversacional por sessão (RunnableWithMessageHistory + limite de tokens) — src/chain/builder.py, src/chain/memoria.py; colaborou na tabela comparativa do relatório de evolução.
