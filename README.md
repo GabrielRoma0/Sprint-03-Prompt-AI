@@ -247,13 +247,3 @@ EVCHALLENGE_MODEL=gpt-oss:120b EVCHALLENGE_MODEL_SECUNDARIO=qwen3:8b python eval
 - Comparação de modelos: `llama3.1:8b` com 5/6 no eval e latência média de
   20,2 s; `gemma2:2b` com 4/6 e 21,9 s (`docs/comparacao_modelos_resultado.json`).
 - Bônus multi-provider: 3 de 3 combinações de modelo/prompt testadas.
-
-## Pontuação mapeada por arquivo
-
-| Bloco da rubrica | Pontos | Arquivos principais |
-|---|---|---|
-| A — Refactory LangChain | 40 | `src/chain/builder.py`, `src/chain/memoria.py`, `src/schemas/` |
-| B — Prompt versionado e relatório de modelos | 25 | `prompts/versoes.md`, `docs/relatorio_modelos.md` |
-| C — Segurança e guardrails | 15 | `src/guardrails/`, `demo_etapa2_guardrails.py` |
-| D — Eval, evolução e relatório | 20 | `evals/`, `docs/relatorio_evolucao.pdf` |
-| Bônus — multi-provider | +1 | `src/chain/multi_provider.py` |
