@@ -1,0 +1,178 @@
+{
+  "casos_testados": [
+    "hp-01",
+    "hp-02",
+    "hp-03",
+    "ec-01",
+    "ec-02",
+    "ec-03"
+  ],
+  "modelos": [
+    {
+      "modelo": "llama3.1:8b",
+      "temperature": 0.2,
+      "top_p": 0.9,
+      "casos_avaliaveis_automaticamente": 6,
+      "aprovados": 5,
+      "taxa_acerto": "5/6",
+      "latencia_media_ms": 20207.8,
+      "resultados": [
+        {
+          "id": "hp-01",
+          "passou": true,
+          "latencia_ms": 22249.82,
+          "dados": {
+            "estado_carregador": "em_carga",
+            "potencia_kw": 7.4,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "hp-02",
+          "passou": true,
+          "latencia_ms": 23122.27,
+          "dados": {
+            "estado_carregador": "concluido",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 18.2,
+            "valor_faturado_brl": 24.5,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "hp-03",
+          "passou": false,
+          "latencia_ms": 7880.98,
+          "dados": null,
+          "erro": "Failed to parse ConsultaRecarga from completion {\"valor_faturado_brl\": 0.0}. Got: 1 validation error for ConsultaRecarga\nestado_carregador\n  Field required [type=missing, input_value={'valor_faturado_brl': 0.0}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE "
+        },
+        {
+          "id": "ec-01",
+          "passou": true,
+          "latencia_ms": 21548.0,
+          "dados": {
+            "estado_carregador": "em_carga",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "ec-02",
+          "passou": true,
+          "latencia_ms": 22576.68,
+          "dados": {
+            "estado_carregador": "em_falha",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "ec-03",
+          "passou": true,
+          "latencia_ms": 23869.07,
+          "dados": {
+            "estado_carregador": "disponivel",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        }
+      ]
+    },
+    {
+      "modelo": "gemma2:2b",
+      "temperature": 0.2,
+      "top_p": 0.9,
+      "casos_avaliaveis_automaticamente": 6,
+      "aprovados": 4,
+      "taxa_acerto": "4/6",
+      "latencia_media_ms": 21920.79,
+      "resultados": [
+        {
+          "id": "hp-01",
+          "passou": true,
+          "latencia_ms": 36221.34,
+          "dados": {
+            "estado_carregador": "em_carga",
+            "potencia_kw": 7.4,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "hp-02",
+          "passou": true,
+          "latencia_ms": 24537.31,
+          "dados": {
+            "estado_carregador": "concluido",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 18.2,
+            "valor_faturado_brl": 24.5,
+            "observacao": "Carga do carregador CP-201 acabou de concluir, entregou 18.2 kWh no total, valor faturado de R$ 24,50."
+          },
+          "erro": null
+        },
+        {
+          "id": "hp-03",
+          "passou": false,
+          "latencia_ms": 17582.69,
+          "dados": {
+            "estado_carregador": "disponivel",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "ec-01",
+          "passou": true,
+          "latencia_ms": 18186.34,
+          "dados": {
+            "estado_carregador": "em_carga",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        },
+        {
+          "id": "ec-02",
+          "passou": false,
+          "latencia_ms": 17719.19,
+          "dados": null,
+          "erro": "Failed to parse ConsultaRecarga from completion {\"estado_carregador\": \"disponivel\", \"potencia_kw\": -5, \"energia_entregue_kwh\": 0.0, \"valor_faturado_brl\": 0.0, \"observacao\": null}. Got: 1 validation error for ConsultaRecarga\npotencia_kw\n  Value error, potencia_kw não pode ser negativa. [type=value_error, input_value=-5, input_type=int]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error\nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE "
+        },
+        {
+          "id": "ec-03",
+          "passou": true,
+          "latencia_ms": 17277.85,
+          "dados": {
+            "estado_carregador": "disponivel",
+            "potencia_kw": null,
+            "energia_entregue_kwh": 0.0,
+            "valor_faturado_brl": 0.0,
+            "observacao": null
+          },
+          "erro": null
+        }
+      ]
+    }
+  ]
+}
