@@ -1,0 +1,19 @@
+# Segredos — nunca commitar
+.env
+*.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Caches de execução local
+evals/*.local.json
