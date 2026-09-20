@@ -129,9 +129,11 @@ def build_story() -> list:
     story.append(Paragraph(
         "Tabela obrigatória — evidência central do refactory. Métricas da Sprint 03 "
         "medidas em 2026-09-20 com evals/run_eval.py e docs/comparar_modelos.py, usando "
-        "llama3.1:8b como substituto de gpt-oss:120b (indisponível localmente a tempo da "
-        "entrega — ver docs/relatorio_modelos.md). Baseline das Sprints 1/2 extraído dos "
-        "relatórios de avaliação oficiais do professor.",
+"llama3.1:8b como substituto de gpt-oss:120b (inviável na máquina usada — 15 GB de RAM "
+        "vs. os ~60-70 GB que o modelo exige, mesmo quantizado; ver docs/relatorio_modelos.md "
+        "para a análise, incluindo por que descartamos deliberadamente a alternativa via "
+        "Ollama Cloud). Baseline das Sprints 1/2 extraído dos relatórios de avaliação "
+        "oficiais do professor.",
         styles["Corpo"],
     ))
     dados_tabela = [
@@ -214,6 +216,20 @@ def build_story() -> list:
             "tornando hp-03 um teste real de memória de sessão (e documentando a correção "
             "no próprio arquivo). Os dois casos usam a mesma session_id em evals/run_eval.py "
             "para reproduzir a dependência entre os dois turnos.",
+        ),
+        (
+            "gpt-oss:120b inviável na máquina disponível — Ollama Cloud avaliado e descartado",
+            "gpt-oss:120b exige da ordem de 60-70 GB de RAM/VRAM mesmo quantizado; a máquina "
+            "usada para validar esta entrega tem 15 GB de RAM, sem GPU dedicada — não era "
+            "questão de tempo de download, e sim de hardware incompatível. Avaliamos rodar via "
+            "Ollama Cloud (gpt-oss:120b-cloud, inferência remota nos servidores da Ollama) e "
+            "confirmamos que a opção existe, mas decidimos não usá-la: deixaria de ser "
+            "inferência 100% local (um ponto forte elogiado na avaliação da Sprint 2) e "
+            "dependeria de cota/plano de uma conta externa, o que se aproxima de depender de "
+            "uma API paga de terceiro — algo que preferimos evitar por princípio, não só pela "
+            "regra do enunciado sobre não commitar chaves de API. Decisão: manter tudo local, "
+            "substituindo por llama3.1:8b/gemma2:2b e documentando a limitação de hardware com "
+            "transparência (ver docs/relatorio_modelos.md).",
         ),
     ]
     for titulo, texto in problemas:

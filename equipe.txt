@@ -2,9 +2,15 @@ EV Challenge — GoodWe · Sprint 03
 Turma: 1CCR
 
 Integrantes:
+
 1. Nome: Léo Moreno Sambo | RM: 569556 | Tarefa principal: Chain LCEL (prompt | llm | parser) e memória conversacional por sessão (RunnableWithMessageHistory + limite de tokens) — src/chain/builder.py, src/chain/memoria.py; colaborou na tabela comparativa do relatório de evolução.
+
 2. Nome: Fernando Hideki Rosa Oda | RM: 571408 | Tarefa principal: Structured output — schema Pydantic v2 do domínio EV (ConsultaRecarga) e validações de campo — src/schemas/consulta_recarga.py; colaborou na redação do relatório de evolução.
+
 3. Nome: Gabriel Botelho Romão | RM: 570589 | Tarefa principal: System prompt versionado (v1 a v3) e context engineering (XML tagging, medição de tokens com tiktoken) — prompts/; coordenação técnica geral e consolidação final do relatório de evolução.
+
 4. Nome: Thor Ferreira Camargo | RM: 569543 | Tarefa principal: Guardrails de segurança — detecção de jailbreak/prompt injection e validação de escopo GoodWe (jurídico, financeiro, elétrico) — src/guardrails/; colaborou na redação do relatório de evolução.
+
 5. Nome: Rafael Marinucci Peres | RM: 569729 | Tarefa principal: Eval set e reexecução dos testes (happy path, edge case, jailbreak, out-of-scope) — evals/; colaborou na tabela comparativa antes/depois.
+
 6. Nome: David dos Reis Cardoso | RM: 568938 | Tarefa principal: Comparação de modelos (llama3.1:8b vs. gemma2:2b) e implementação do bônus multi-provider — docs/comparar_modelos.py, src/chain/multi_provider.py; colaborou na redação do relatório de uso de modelos.

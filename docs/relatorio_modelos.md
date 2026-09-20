@@ -6,18 +6,35 @@
 ## Nota sobre os modelos efetivamente testados
 
 O enunciado (§3, item 1) pede `gpt-oss:120b` como modelo principal. Na
-máquina usada para rodar e validar esta entrega, nem `gpt-oss:120b`
-(120B parâmetros — dezenas de GB, não viável baixar a tempo da entrega)
-nem `qwen3:8b` estavam disponíveis no Ollama local. Para não entregar a
-comparação com números fictícios, ela foi rodada com dois modelos já
-instalados localmente: **`llama3.1:8b`** (principal, mesma ordem de
-grandeza de parâmetros que `qwen3:8b`) e **`gemma2:2b`** (secundário —
-o mesmo modelo já usado como principal na Sprint 2, o que também permite
-comparar diretamente com o baseline anterior). O código (`src/chain/builder.py`,
-`src/chain/multi_provider.py`) aceita qualquer modelo Ollama via parâmetro
-ou variável de ambiente `EVCHALLENGE_MODEL`/`EVCHALLENGE_MODEL_SECUNDARIO`
-— basta rodar `ollama pull gpt-oss:120b` e `ollama pull qwen3:8b` e repetir
-o comando abaixo para reproduzir a comparação com os modelos do enunciado.
+máquina usada para rodar e validar esta entrega (15 GB de RAM, sem GPU
+dedicada), `gpt-oss:120b` não é viável de rodar localmente de forma
+alguma — não é uma questão de tempo de download, mas de hardware: o
+modelo (mesmo quantizado) exige da ordem de 60-70 GB de RAM/VRAM para
+carregar, quase 5x a RAM total desta máquina. `qwen3:8b` também não estava
+baixado localmente.
+
+Avaliamos deliberadamente a opção de usar o **Ollama Cloud**, que oferece
+`gpt-oss:120b-cloud` (inferência remota nos servidores da Ollama, sem
+precisar do hardware local) — chegamos a registrar essa referência e
+confirmar que existe. **Decidimos não usar**, por dois motivos: (1) isso
+deixaria de ser inferência 100% local, o que era justamente um ponto
+forte elogiado na avaliação da Sprint 2 ("Modelo local... sem API key,
+privacidade total"); e (2) rodar via nuvem depende de cota/plano da conta
+Ollama vinculada, o que se aproxima conceitualmente de depender de uma
+API paga de terceiro — algo que o grupo optou por evitar por princípio,
+não só por causa da regra do enunciado sobre não commitar API keys.
+
+Para não entregar a comparação com números fictícios, ela foi rodada com
+dois modelos já instalados localmente: **`llama3.1:8b`** (principal,
+mesma ordem de grandeza de parâmetros que `qwen3:8b`) e **`gemma2:2b`**
+(secundário — o mesmo modelo já usado como principal na Sprint 2, o que
+também permite comparar diretamente com o baseline anterior). O código
+(`src/chain/builder.py`, `src/chain/multi_provider.py`) aceita qualquer
+modelo Ollama via parâmetro ou variável de ambiente
+`EVCHALLENGE_MODEL`/`EVCHALLENGE_MODEL_SECUNDARIO` — em uma máquina com
+hardware suficiente, basta rodar `ollama pull gpt-oss:120b` e
+`ollama pull qwen3:8b` e repetir o comando abaixo para reproduzir a
+comparação com os modelos exatos do enunciado.
 
 ## Modelos comparados
 
