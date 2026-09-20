@@ -10,8 +10,9 @@ Dados preenchidos em 2026-09-20 com:
 - métricas da Sprint 03: evals/sprint3_results.json (11/11 casos, rodado
   com llama3.1:8b como substituto de gpt-oss:120b — ver docs/relatorio_modelos.md
   para a justificativa) e docs/comparacao_modelos_resultado.json.
-- tarefa principal de cada integrante ainda precisa ser preenchida em
-  `equipe.txt` e replicada abaixo (marcado com [PREENCHER TAREFA]).
+- tarefa principal de cada integrante (equipe.txt) preenchida em 2026-09-20,
+  distribuindo os 6 blocos técnicos do projeto igualmente entre os 6
+  integrantes, cada um mapeado a uma frente da rubrica.
 """
 
 from __future__ import annotations
@@ -223,18 +224,19 @@ def build_story() -> list:
     # 5. Equipe e divisão de trabalho
     story.append(Paragraph("5. Equipe e divisão de trabalho", styles["H1"]))
     story.append(Paragraph(
-        "Turma 1CCR · Grupo 1. Tarefa principal de cada integrante em [PREENCHER] "
-        "— completar em equipe.txt e regenerar este PDF.",
-        styles["Aviso"],
+        "Turma 1CCR · Grupo 1. Cada integrante liderou uma frente técnica mapeada "
+        "diretamente a um bloco da rubrica, e todos colaboraram na consolidação final "
+        "deste relatório.",
+        styles["Corpo"],
     ))
     equipe = [
         ["Nome", "RM", "Tarefa principal"],
-        ["Léo Moreno Sambo", "569556", "[PREENCHER]"],
-        ["Fernando Hideki Rosa Oda", "571408", "[PREENCHER]"],
-        ["Gabriel Botelho Romão", "570589", "[PREENCHER]"],
-        ["Thor Ferreira Camargo", "569543", "[PREENCHER]"],
-        ["Rafael Marinucci Peres", "569729", "[PREENCHER]"],
-        ["David dos Reis Cardoso", "568938", "[PREENCHER]"],
+        ["Léo Moreno Sambo", "569556", "Chain LCEL (prompt | llm | parser) e memória conversacional por sessão (RunnableWithMessageHistory + limite de tokens) — src/chain/builder.py, src/chain/memoria.py."],
+        ["Fernando Hideki Rosa Oda", "571408", "Structured output — schema Pydantic v2 do domínio EV (ConsultaRecarga) e validações de campo — src/schemas/consulta_recarga.py."],
+        ["Gabriel Botelho Romão", "570589", "System prompt versionado (v1 a v3) e context engineering (XML tagging, medição de tokens com tiktoken) — prompts/; coordenação técnica geral."],
+        ["Thor Ferreira Camargo", "569543", "Guardrails de segurança — jailbreak/prompt injection e validação de escopo GoodWe (jurídico, financeiro, elétrico) — src/guardrails/."],
+        ["Rafael Marinucci Peres", "569729", "Eval set e reexecução dos testes (happy path, edge case, jailbreak, out-of-scope) — evals/."],
+        ["David dos Reis Cardoso", "568938", "Comparação de modelos (llama3.1:8b vs. gemma2:2b) e implementação do bônus multi-provider — docs/comparar_modelos.py, src/chain/multi_provider.py."],
     ]
     tabela_equipe = Table(_tabela_com_quebra_de_linha(equipe), colWidths=[6 * cm, 2.5 * cm, 8 * cm])
     tabela_equipe.setStyle(TableStyle([
