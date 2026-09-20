@@ -1,0 +1,13 @@
+EV Challenge — GoodWe · Sprint 03
+Disciplina: Prompt and Artificial Intelligence
+Turma: 1CCR · Grupo 1
+
+Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
+
+Integrantes:
+Léo Moreno Sambo - RM 569556
+Fernando Hideki Rosa Oda - RM 571408
+Gabriel Botelho Romão - RM 570589
+Thor Ferreira Camargo - RM 569543
+Rafael Marinucci Peres - RM 569729
+David dos Reis Cardoso - RM 568938
