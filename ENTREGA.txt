@@ -1,6 +1,6 @@
 EV Challenge — GoodWe · Sprint 03
 Disciplina: Prompt and Artificial Intelligence
-Turma: 1CCR · Grupo 1
+Turma: 1CCR · Grupo 2
 
 Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
 
