@@ -68,7 +68,7 @@ def build_story() -> list:
     story.append(Paragraph("Refactory conversacional em LangChain (LCEL)", styles["SubtituloCapa"]))
     story.append(Spacer(1, 1 * cm))
     story.append(Paragraph(
-        "Turma 1CCR · Grupo 1 — ver equipe completa na seção 5.",
+        "Turma 1CCR · Grupo 2 — ver equipe completa na seção 5.",
         styles["SubtituloCapa"],
     ))
     story.append(Spacer(1, 4 * cm))
@@ -240,7 +240,7 @@ def build_story() -> list:
     # 5. Equipe e divisão de trabalho
     story.append(Paragraph("5. Equipe e divisão de trabalho", styles["H1"]))
     story.append(Paragraph(
-        "Turma 1CCR · Grupo 1. Cada integrante liderou uma frente técnica mapeada "
+        "Turma 1CCR · Grupo 2. Cada integrante liderou uma frente técnica mapeada "
         "diretamente a um bloco da rubrica, e todos colaboraram na consolidação final "
         "deste relatório.",
         styles["Corpo"],
