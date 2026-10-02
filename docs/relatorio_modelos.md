@@ -102,3 +102,119 @@ piores que `llama3.1:8b` nesta bateria de testes — o oposto do que se
 esperaria só pelo tamanho do modelo, o que reforça que o comportamento de
 seguir instruções de formato (JSON estrito) pesa tanto quanto o tamanho do
 modelo para esta tarefa.
+
+---
+
+# Sprint 04 — modelos e parâmetros do pipeline RAG
+
+> Continuação deste relatório para o pipeline RAG (`src/rag/`). A
+> comparação acima (Sprint 03) é sobre a chain conversacional
+> (`ConsultaRecarga`, dados de sessão simulados); esta seção compara os
+> mesmos modelos candidatos, mas gerando respostas fundamentadas na base
+> de conhecimento vetorizada (`RespostaRAG`, com citação de fonte).
+> Detalhamento técnico do pipeline em si (chunking, retriever, segurança)
+> está em `docs/relatorio_rag.md` — aqui o foco é só modelo × parâmetros.
+
+**Status: executado.** Base indexada (17 chunks) e eval rodado com os dois
+modelos em 2026-09-23 (`evals/rag_results_v1_llama31.json`,
+`evals/rag_results_v1_gemma2.json`) — resultados na tabela da seção
+"Resultados" abaixo. RAGAS não estava instalado neste ambiente; scores
+via rubrica manual (`evals/rubrica_manual_ragas.md`).
+
+## Modelo de embedding (fixo, não comparado)
+
+| Modelo | Papel | Onde é servido |
+|---|---|---|
+| `nomic-embed-text` | Gera os vetores da base de conhecimento e das perguntas (indexação e busca) | Ollama local (`src/rag/embeddings.py`) |
+
+Pedido explicitamente pelo enunciado (§1) — não é um dos "2+ modelos"
+comparados abaixo; a comparação de modelos da rubrica (Bloco C) é sobre o
+**modelo de resposta** (o LLM que lê o contexto recuperado e gera a
+resposta citando fonte), não sobre o modelo de embedding.
+
+## Modelos de resposta comparados
+
+Mesmo par já validado no pipeline conversacional da Sprint 03 (seção
+acima), agora testado sobre o pipeline RAG — reaproveitar o par já
+instalado localmente evita reintroduzir a limitação de hardware descrita
+na nota do topo deste documento.
+
+| Modelo | Papel no pipeline RAG | Onde é servido |
+|---|---|---|
+| `llama3.1:8b` | Modelo principal — mesmo escolhido na Sprint 03 por ter tido melhor taxa de acerto e menor latência no eval conversacional | Ollama local |
+| `gemma2:2b` | Modelo secundário de comparação | Ollama local |
+
+Reproduzir com os modelos do enunciado (`gpt-oss:120b`/`qwen3:8b`) em uma
+máquina com hardware suficiente: mesma variável de ambiente
+`EVCHALLENGE_MODEL`, já lida por `build_llm()` (reaproveitado em
+`src/rag/rag_chain.py`).
+
+## Parâmetros usados no pipeline RAG
+
+| Parâmetro | Valor | Por quê difere (ou não) da Sprint 03 |
+|---|---|---|
+| `temperature` | **0.0** | Reduzido de 0.2 (Sprint 03) — RAG prioriza reprodutibilidade e aderência literal ao contexto recuperado sobre variação; queremos o mesmo contexto sempre gerando a mesma citação. |
+| `top_p` | 0.9 | Mantido igual à Sprint 03, para isolar `temperature` como a única variável de amostragem alterada entre as duas chains. |
+| `top_k` (retriever, não confundir com top-k de amostragem do LLM) | 4 | Quantos chunks o retriever traz por pergunta (`src/rag/retriever.py`). Não existe na chain conversacional da Sprint 03 — é específico do RAG. Mais chunks = mais chance de cobrir a resposta certa, às custas de mais tokens por chamada. |
+| `max_tokens` | Não fixado explicitamente (usa o default do modelo via `ChatOllama`) | A resposta RAG (`RespostaRAG`) é mais curta que `ConsultaRecarga` em média — texto livre + lista de fontes, sem necessidade de um teto customizado até agora. Se algum caso do eval mostrar resposta cortada, fixar aqui e justificar o valor escolhido. |
+
+## Como rodar a comparação
+
+```bash
+ollama pull nomic-embed-text
+ollama pull llama3.1:8b
+ollama pull gemma2:2b
+
+python -m src.rag.indexar   # indexa data/knowledge_base/ uma vez
+
+EVCHALLENGE_MODEL=llama3.1:8b python evals/run_eval_rag.py v1
+EVCHALLENGE_MODEL=gemma2:2b python evals/run_eval_rag.py v1
+```
+
+Cada execução grava `evals/rag_results_v1.json` — rodar para um modelo,
+copiar/renomear o arquivo (ex.: `rag_results_v1_llama31.json`) antes de
+rodar para o outro, para não sobrescrever.
+
+## Resultados (medidos em 2026-09-23, `evals/eval_set_rag.json`, rubrica manual)
+
+| Modelo | faithfulness (manual) | answer_relevancy (manual) | Latência média (ms, casos RAG) | Casos `no_context` recusados corretamente |
+|---|---|---|---|---|
+| `llama3.1:8b` | **1.0** (12/12 casos automáticos aprovados) | **1.0** | 94.869 | 2/2 |
+| `gemma2:2b` | **0.594** (8/12 casos automáticos aprovados) | 0.969 | 50.263 | 0/2 |
+
+Detalhe caso a caso em `evals/rag_results_v1_llama31.json` e
+`evals/rag_results_v1_gemma2.json`. Falhas concretas do `gemma2:2b`
+(explicam o faithfulness baixo):
+
+- **Alucinação de valor**: confundiu as 3 faixas da tabela tarifária,
+  respondendo R$ 0,85/kWh (intermediário) para uma pergunta sobre o
+  horário de ponta (correto: R$ 1,20/kWh) — `llama3.1:8b` acertou o mesmo
+  caso.
+- **Alucinação em edge case**: inventou que o Nissan Leaf "atinge carga em
+  torno de 22 kW", um dado que não existe em nenhum documento da base —
+  exatamente o comportamento que o caso `rag-ec-02` foi desenhado para
+  detectar. `llama3.1:8b` recusou corretamente dar um número específico
+  no mesmo caso.
+- **Citação fabricada em recusa**: no caso `rag-nc-01` (fora da base), o
+  texto da resposta recusou corretamente, mas o campo estruturado saiu
+  `respondeu_com_contexto=True` citando uma fonte que não sustenta nada
+  do que foi dito — inconsistência entre o texto livre e o schema.
+- **Falha de parsing**: no caso `rag-nc-02`, o modelo devolveu
+  `respondeu_com_contexto`/`fontes` como string (`"false"`/`"[]"`) em vez
+  do tipo esperado pelo schema, e o `PydanticOutputParser` rejeitou a
+  saída — mesma classe de limitação de modelo pequeno com `format="json"`
+  já documentada na comparação da Sprint 03 (seção acima).
+
+`gemma2:2b` foi ~1,9x mais rápido, mas a diferença de latência não
+compensa a taxa de alucinação/inconsistência observada num pipeline cujo
+requisito central (§3, item 3 do enunciado) é justamente não inventar
+informação fora do contexto.
+
+## Critério de escolha do modelo principal (RAG)
+
+`llama3.1:8b` é o modelo principal também para o RAG, pelo mesmo motivo
+da Sprint 03 (seção acima) reforçado pelos números desta tabela:
+zero alucinações e 100% de recusa correta em `no_context` contra 2
+alucinações concretas e 0/2 de recusa correta em `gemma2:2b` — para um
+pipeline cujo requisito não-negociável é grounding, fidelidade ao
+contexto pesa mais que a latência ~2x menor do modelo menor.

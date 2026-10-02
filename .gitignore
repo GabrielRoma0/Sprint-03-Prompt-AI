@@ -17,3 +17,6 @@ venv/
 
 # Caches de execução local
 evals/*.local.json
+
+# Vector store persistido (regenerado por `python -m src.rag.indexar`)
+data/chroma_db/

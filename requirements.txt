@@ -5,3 +5,12 @@ langchain-classic>=1.0; python_version >= "3.9"
 pydantic>=2.6
 tiktoken>=0.7
 reportlab>=4.0
+
+# Sprint 04 — pipeline RAG (Módulo 2) e interface web (Aula 08)
+langchain-community>=0.3
+langchain-chroma>=0.2
+langchain-text-splitters>=0.3
+chromadb>=0.5
+pymupdf>=1.24
+streamlit>=1.38
+ragas>=0.2; python_version >= "3.9"

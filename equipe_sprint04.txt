@@ -1,0 +1,29 @@
+EV Challenge — GoodWe · Sprint 04
+Turma: 1CCR
+
+Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
+(mesmo repositório da Sprint 03 — projeto contínuo, ver README.md)
+
+Integrantes:
+
+1. Nome: Léo Moreno Sambo | RM: 569556 | Tarefa principal: Chain RAG end-to-end (retriever | prompt_rag | llm | parser) — src/rag/rag_chain.py, src/rag/retriever.py; colaborou na tabela comparativa do relatório de evolução da Sprint 04.
+
+2. Nome: Fernando Hideki Rosa Oda | RM: 571408 | Tarefa principal: Structured output do RAG — schema Pydantic v2 RespostaRAG com validação de citação obrigatória — src/schemas/resposta_rag.py; colaborou na redação do relatório de evolução.
+
+3. Nome: Gabriel Botelho Romão | RM: 570589 | Tarefa principal: Prompt RAG versionado (v1/v2) e pipeline de indexação (loader, chunking, embeddings) — prompts/rag_*.md, src/rag/; coordenação técnica geral e consolidação final do relatório de evolução.
+
+4. Nome: Thor Ferreira Camargo | RM: 569543 | Tarefa principal: Segurança do RAG — auditoria de prompt injection via documento e correção dos gaps de guardrail encontrados durante o eval — src/guardrails/document_sanitizer.py, src/guardrails/moderation.py, src/guardrails/scope_validator.py.
+
+5. Nome: Rafael Marinucci Peres | RM: 569729 | Tarefa principal: Eval set e execução do RAG (RAGAS/fallback manual) — evals/eval_set_rag.json, evals/run_eval_rag.py, evals/rubrica_manual_ragas.md; colaborou na tabela comparativa antes/depois.
+
+6. Nome: David dos Reis Cardoso | RM: 568938 | Tarefa principal: Comparação de modelos sobre o pipeline RAG e interface web — docs/relatorio_modelos.md (seção Sprint 04), app/main.py; colaborou na redação do relatório de uso de modelos.
+
+NOTA: esta divisão mantém a mesma frente técnica de cada integrante já
+usada na Sprint 03, agora aplicada à versão RAG do projeto.
+
+NOTA SOBRE O HISTÓRICO DE COMMITS: nem todos os integrantes tinham
+familiaridade com Git/GitHub neste momento do curso, então o histórico
+de commits desta sprint não tem uma entrada de cada pessoa na mesma
+proporção. Isso não reflete o nível real de contribuição — todos
+participaram igualmente do desenvolvimento, divisão de tarefas e revisão
+do conteúdo desta entrega, conforme a divisão de frentes técnicas acima.

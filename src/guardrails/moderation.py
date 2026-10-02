@@ -25,7 +25,12 @@ _PADROES_JAILBREAK = [
     re.compile(r"\bignor[ea]\s+(todas\s+)?as\s+instru[çc][õo]es\s+anteriores\b", re.IGNORECASE),
     re.compile(r"\bdisregard\s+(all\s+)?previous\s+instructions\b", re.IGNORECASE),
     # Tenta trocar a persona/restrições do assistente.
-    re.compile(r"\bfinja\s+que\s+voc[êe]\s+[ée]\b", re.IGNORECASE),
+    # Ampliado na Sprint 04 (evals/eval_set_rag.json:rag-jb-02): a versão
+    # original só cobria "finja que você é X" e não pegava variações como
+    # "finja que você não tem restrição" — mesma família de ataque
+    # (persona/restrição), padrão mais genérico agora.
+    re.compile(r"\bfinja\s+que\s+voc[êe]\b", re.IGNORECASE),
+    re.compile(r"\b(sem|nenhuma)\s+restri[çc][ãa]o(?:\s+de\s+escopo)?\b", re.IGNORECASE),
     re.compile(r"\bmodo\s+(desenvolvedor|dev|sem\s+restri[çc][õo]es|dan)\b", re.IGNORECASE),
     re.compile(r"\bact\s+as\s+(dan|an\s+unrestricted\s+ai)\b", re.IGNORECASE),
     # Tenta extrair o system prompt.

@@ -37,7 +37,10 @@ _PADROES_JURIDICO = re.compile(
 )
 
 _PADROES_FINANCEIRO = re.compile(
-    r"\b(investir|investimento|financiamento|empr[ée]stimo|vale a pena comprar "
+    # "financiamento|financiar": ampliado na Sprint 04
+    # (evals/eval_set_rag.json:rag-oos-01) — a versão original só cobria o
+    # substantivo ("financiamento"), não o verbo ("vale a pena financiar").
+    r"\b(investir|investimento|financiar|financiamento|empr[ée]stimo|vale a pena comprar "
     r"ações|declarar no imposto de renda|dedu[çc][ãa]o fiscal)\b",
     re.IGNORECASE,
 )
