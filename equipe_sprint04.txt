@@ -1,5 +1,5 @@
 EV Challenge — GoodWe · Sprint 04
-Turma: 1CCR
+Turma: 1CCR · Grupo 2
 
 Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
 (mesmo repositório da Sprint 03 — projeto contínuo, ver README.md)

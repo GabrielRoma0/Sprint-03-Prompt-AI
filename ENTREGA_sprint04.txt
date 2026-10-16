@@ -1,0 +1,18 @@
+EV Challenge — GoodWe · Sprint 04
+Disciplina: Prompt and Artificial Intelligence
+Turma: 1CCR · Grupo 2
+
+Repositório: https://github.com/GabrielRoma0/Sprint-03-Prompt-AI
+(mesmo repositório da Sprint 03 — projeto contínuo; a Sprint 04 está na
+seção própria do README.md)
+
+Integrantes:
+Léo Moreno Sambo - RM 569556
+Fernando Hideki Rosa Oda - RM 571408
+Gabriel Botelho Romão - RM 570589
+Thor Ferreira Camargo - RM 569543
+Rafael Marinucci Peres - RM 569729
+David dos Reis Cardoso - RM 568938
+
+Relatório de evolução do projeto (PDF, 3 páginas): docs/relatorio_evolucao_sprint04.pdf
+Divisão de tarefas detalhada: equipe_sprint04.txt
